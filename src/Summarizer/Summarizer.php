@@ -5,17 +5,32 @@ namespace Summarizer;
 
 class Summarizer
 {
-    private $intervals;
+    private $granularities;
+    private $urls;
 
-    public function __construct($intervals)
+    public function __construct($granularities, $urls)
     {
-        $this->intervals = $intervals;
+        $this->granularities = $granularities;
+        $this->urls = $urls;
     }
 
-    public function summarizeData($graph) {
-        // Instantiate IntervalSummarizers for each interval
+    public function summarizeAll() {
+        // For each url
 
-        // Pass graph to these IntervalSummarizers
+            // Get raw data
 
+            // Parse into hardf graph
+
+            // addToDatasetSummary($url)
+    }
+
+    public function addToDatasetSummary($url) {
+        // For each interval
+
+            // Find which data is not yet implemented in current summary
+
+            // Calculate new summarized data
+
+            // Write to current summary file (use filesystem from smartflanders backend)
     }
 }

@@ -2,20 +2,23 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
+use Summarizer\Summarizer;
 
 $dotenv = new Dotenv(__DIR__ . '/../');
 $dotenv->load();
 $dotenv->required('INTERVALS');
 
-$intervals = parse_intervals($_ENV['INTERVALS']); // Intervals in seconds
+$granularities = parse_grans($_ENV['GRANULARITIES']); // Intervals in seconds
+$urls = [
+    'Gent' => 'linked.open.gent/parking',
+    'Kortrijk' => 'kortrijk.datapiloten.be/parking',
+    'Leuven' => 'leuven.datapiloten.be/parking',
+    'Sint-Niklaas' => 'sint-niklaas.datapiloten.be/parking'
+];
 
-// Get data from entry point
+$summarizer = new Summarizer($granularities, $urls);
 
-// Parse into hardf graph
-
-// Pass interval list and graph to Summarizer
-
-function parse_intervals($string) {
+function parse_grans($string) {
     $arr = explode(',', $string);
     $result = array();
     $multiply = [
