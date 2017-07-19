@@ -17,6 +17,7 @@ $urls = [
 ];
 
 $summarizer = new Summarizer($granularities, $urls);
+$summarizer->summarizeAll();
 
 function parse_grans($string) {
     $arr = explode(',', $string);

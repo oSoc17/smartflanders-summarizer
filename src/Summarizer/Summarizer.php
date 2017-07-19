@@ -3,6 +3,8 @@
 namespace Summarizer;
 
 
+use pietercolpaert\hardf\TriGParser;
+
 class Summarizer
 {
     private $granularities;
@@ -16,15 +18,22 @@ class Summarizer
 
     public function summarizeAll() {
         // For each url
-
+        foreach($this->urls as $url) {
             // Get raw data
+            $raw = file_get_contents($url);
 
             // Parse into hardf graph
+            $parser = new TriGParser();
+            $graph = $parser->parse($raw);
 
-            // addToDatasetSummary($url)
+            // pass to dataset summary
+            $this->addToDatasetSummary($url, $graph);
+        }
+
+
     }
 
-    public function addToDatasetSummary($url) {
+    public function addToDatasetSummary($url, $graph) {
         // For each interval
 
             // Find which data is not yet implemented in current summary
