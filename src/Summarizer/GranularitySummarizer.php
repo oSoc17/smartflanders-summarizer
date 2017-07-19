@@ -3,7 +3,7 @@
 namespace Summarizer;
 
 
-class IntervalSummarizer
+class GranularitySummarizer
 {
     private $interval;
 
