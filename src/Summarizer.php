@@ -5,6 +5,7 @@ namespace oSoc\Summary;
 use oSoc\Summary\Filesystem\FileReader;
 use pietercolpaert\hardf\TriGParser;
 use pietercolpaert\hardf\Util;
+use oSoc\Summary\Statistics\Statistics;
 
 class Summarizer
 {
@@ -67,7 +68,10 @@ class Summarizer
                 $avg = array_sum($literals) / count($literals);
                 $max = max($literals);
                 $min = min($literals);
-
+                $stat = new Statistics();
+                $stat->addSet($literals);
+                $stdev = $stat->__get('std_dev');
+                $med = $stat->__get('median');
             }
 
             // Write to current summary file (use filesystem from smartflanders backend)

@@ -3,6 +3,7 @@
  * Statistics Library
  *
  * Basic statistical analysis of a dataset
+ * https://github.com/khatfield/php-statistics
  *
  * @license     MIT License
  * @author      Keith Hatfield
