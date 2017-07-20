@@ -1,6 +1,6 @@
 <?php
 
-namespace oSoc\Smartflanders\Filesystem;
+namespace oSoc\Summary\Filesystem;
 
 use pietercolpaert\hardf\TriGWriter;
 use pietercolpaert\hardf\TriGParser;

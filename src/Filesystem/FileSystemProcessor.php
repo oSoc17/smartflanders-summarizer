@@ -1,11 +1,10 @@
 <?php
 
-namespace oSoc\Smartflanders\Filesystem;
+namespace oSoc\Summary\Filesystem;
 
 use \League\Flysystem\Adapter\Local;
 use \League\Flysystem\Filesystem;
-use pietercolpaert\hardf\TriGWriter;
-use \oSoc\Smartflanders\Helpers;
+use pietercolpaert\hardf\TriGParser;
 
 Class FileSystemProcessor {
     protected $out_fs;
@@ -17,8 +16,10 @@ Class FileSystemProcessor {
     protected $static_data_filename;
     protected $name;
 
-    public function __construct($out_dirname, $res_dirname, $granularity, $name)
+    public function __construct($granularity, $name)
     {
+        $out_dirname = __DIR__ . '/../../out/' . $name . '/' . $granularity . '/';
+        $res_dirname = __DIR__ . '/../../resources/' . $name . '/' . $granularity . '/';
         $this->granularity = $granularity;
         date_default_timezone_set("Europe/Brussels");
         $out_adapter = new Local($out_dirname . "/" . $name);
@@ -44,9 +45,20 @@ Class FileSystemProcessor {
         return false;
     }
 
-    // Get current page (this page is still forming, others are historic and don't change)
+    // Get UNIX timestamp of current page (this page is still forming, others are historic and don't change)
     public function getCurrentPage() {
         return $this->getClosestPage(time());
+    }
+
+    // Get measurements for current page
+    // Returns hardf graph with measurements
+    public function getCurrentMeasurements() {
+        if ($this->res_fs->has('measurements')) {
+            $raw = $this->res_fs->read('measurements');
+            $parser = new TriGParser(['format' => 'trig']);
+            return $parser->parse($raw);
+        }
+        return ['triples' => array()];
     }
 
     // PRIVATE METHODS

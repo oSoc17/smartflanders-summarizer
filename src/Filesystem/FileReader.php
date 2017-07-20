@@ -1,5 +1,5 @@
 <?php
-namespace oSoc\Smartflanders\Filesystem;
+namespace oSoc\Summary\Filesystem;
 
 class FileReader extends FileSystemProcessor {
 

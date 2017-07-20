@@ -2,6 +2,7 @@
 
 namespace oSoc\Summary;
 
+use oSoc\Summary\Filesystem\FileReader;
 use pietercolpaert\hardf\TriGParser;
 
 class Summarizer
@@ -16,7 +17,6 @@ class Summarizer
     }
 
     public function summarizeAll() {
-        // For each url
         foreach($this->urls as $name => $url) {
             echo "Getting data for " . $name . "\n";
             // Get raw data
@@ -27,19 +27,31 @@ class Summarizer
             $graph = $parser->parse($raw);
 
             // pass to dataset summary
-            $this->addToDatasetSummary($url, $graph);
+            $this->addToDatasetSummary($name, $graph);
         }
 
 
     }
 
-    public function addToDatasetSummary($url, $graph) {
-        // For each interval
+    public function addToDatasetSummary($name, $graph) {
+        foreach($this->granularities as $granularity) {
+            // Get current file + resources file for name
+            $reader = new FileReader($granularity, $name);
+            $currentMeasurements = $reader->getCurrentMeasurements();
 
             // Find which data is not yet implemented in current summary
+            $filteredGraph = ["triples" => array()];
+            foreach($graph->triples as $triple) {
+                if ($triple->predicate === 'datex:parkingNumberOfVacantSpaces') {
+                    if (!in_array($triple, $currentMeasurements)) {
+
+                    }
+                }
+            }
 
             // Calculate new summarized data
 
             // Write to current summary file (use filesystem from smartflanders backend)
+        }
     }
 }
