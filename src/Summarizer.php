@@ -38,20 +38,23 @@ class Summarizer
             // Get current file + resources file for name
             $reader = new FileReader($granularity, $name);
             $currentMeasurements = $reader->getCurrentMeasurements();
+            $currentSummary = $reader->getCurrentSummary();
 
             // Find which data is not yet implemented in current summary
             $filteredGraph = ["triples" => array()];
             foreach($graph->triples as $triple) {
                 if ($triple->predicate === 'datex:parkingNumberOfVacantSpaces') {
                     if (!in_array($triple, $currentMeasurements)) {
-
+                        array_push($filteredGraph["triples"], $triple);
                     }
                 }
             }
 
-            // Calculate new summarized data
+            // Calculate new summarized data ($currentSummary)
 
             // Write to current summary file (use filesystem from smartflanders backend)
+
+            // Write new triples to current measurements file
         }
     }
 }

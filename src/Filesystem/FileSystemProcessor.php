@@ -4,7 +4,6 @@ namespace oSoc\Summary\Filesystem;
 
 use \League\Flysystem\Adapter\Local;
 use \League\Flysystem\Filesystem;
-use pietercolpaert\hardf\TriGParser;
 
 Class FileSystemProcessor {
     protected $out_fs;
@@ -43,22 +42,6 @@ Class FileSystemProcessor {
             return (string)$this->roundTimestamp($return_ts);
         }
         return false;
-    }
-
-    // Get UNIX timestamp of current page (this page is still forming, others are historic and don't change)
-    public function getCurrentPage() {
-        return $this->getClosestPage(time());
-    }
-
-    // Get measurements for current page
-    // Returns hardf graph with measurements
-    public function getCurrentMeasurements() {
-        if ($this->res_fs->has('measurements')) {
-            $raw = $this->res_fs->read('measurements');
-            $parser = new TriGParser(['format' => 'trig']);
-            return $parser->parse($raw);
-        }
-        return ['triples' => array()];
     }
 
     // PRIVATE METHODS
