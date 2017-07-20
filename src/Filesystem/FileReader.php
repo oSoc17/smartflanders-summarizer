@@ -14,9 +14,10 @@ class FileReader extends FileSystemProcessor {
     }
 
     // Get current summary (the one that is being built)
-    // Returns a hardf graph
+    // Returns a hardf graph (or false if a new summary must be started)
     public function getCurrentSummary() {
         // TODO
+        return false;
     }
 
     // Get measurements for current summary

@@ -51,6 +51,11 @@ class Summarizer
             }
 
             // Calculate new summarized data ($currentSummary)
+            if ($currentSummary) {
+                // Update
+            } else {
+                // New
+            }
 
             // Write to current summary file (use filesystem from smartflanders backend)
 
