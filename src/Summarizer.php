@@ -4,6 +4,7 @@ namespace oSoc\Summary;
 
 use oSoc\Summary\Filesystem\FileReader;
 use pietercolpaert\hardf\TriGParser;
+use pietercolpaert\hardf\Util;
 
 class Summarizer
 {
@@ -41,20 +42,38 @@ class Summarizer
             $currentSummary = $reader->getCurrentSummary();
 
             // Find which data is not yet implemented in current summary
-            $filteredGraph = ["triples" => array()];
-            foreach($graph->triples as $triple) {
-                if ($triple->predicate === 'datex:parkingNumberOfVacantSpaces') {
-                    if (!in_array($triple, $currentMeasurements)) {
-                        array_push($filteredGraph["triples"], $triple);
+            $filteredGraph = ["triples" => array(), "prefixes" => $graph['prefixes']];
+            if ($currentSummary) {
+                foreach($graph['triples'] as $triple) {
+                    if ($triple['predicate'] === 'datex:parkingNumberOfVacantSpaces') {
+                        if (!in_array($triple, $currentMeasurements)) {
+                            array_push($filteredGraph["triples"], $triple);
+                        }
                     }
                 }
+            } else {
+                $filteredGraph = $graph;
             }
 
-            // Calculate new summarized data ($currentSummary)
+
+            // Calculate new summarized data
             if ($currentSummary) {
                 // Update
             } else {
-                // New
+                $literals = array();
+                foreach($filteredGraph['triples'] as $triple) {
+                    array_push($literals, Util::getLiteralValue($triple['object']));
+                }
+                sort($literals);
+                $count = count($literals);
+                $avg = array_sum($literals) / $count;
+                $min = $literals[0];
+                $max = $literals[$count-1];
+                if ($count%2 === 0) {
+                    $med = ($literals[$count/2-1] + $literals[$count/2])/2;
+                } else {
+                    $med = $literals[$count/2];
+                }
             }
 
             // Write to current summary file (use filesystem from smartflanders backend)
