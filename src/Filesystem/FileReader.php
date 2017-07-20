@@ -3,7 +3,8 @@ namespace oSoc\Smartflanders\Filesystem;
 
 class FileReader extends FileSystemProcessor {
 
-    // Get the contents of a file and return a graph object
+    // Takes: a filename (UNIX timestamp)
+    // Returns: the contents in Turtle/TriG format
     public function getGraphsFromFile($filename) {
         // TODO
     }

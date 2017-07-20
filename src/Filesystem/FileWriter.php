@@ -8,13 +8,12 @@ use oSoc\Smartflanders\Helpers;
 
 class FileWriter extends FileSystemProcessor {
 
-    /**
-     * @param $timestamp
-     * @param $graph
-     * @Function: uses its parameters to
-     */
-    public function writeToFile($timestamp, $graph) {
-
+    // Takes: timestamp and measurement
+    // Writes measurement to resources file
+    // Updates aggregation in current file
+    // Creates new file (deleting resources) if necessary
+    public function writeMeasurement($timestamp, $graph) {
+        // TODO
     }
 }
 
