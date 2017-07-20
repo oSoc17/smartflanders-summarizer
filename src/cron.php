@@ -2,18 +2,18 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
-use Summarizer\Summarizer;
+use oSoc\Summary\Summarizer;
 
 $dotenv = new Dotenv(__DIR__ . '/../');
 $dotenv->load();
-$dotenv->required('INTERVALS');
+$dotenv->required('GRANULARITIES');
 
 $granularities = parse_grans($_ENV['GRANULARITIES']); // Intervals in seconds
 $urls = [
-    'Gent' => 'linked.open.gent/parking',
-    'Kortrijk' => 'kortrijk.datapiloten.be/parking',
-    'Leuven' => 'leuven.datapiloten.be/parking',
-    'Sint-Niklaas' => 'sint-niklaas.datapiloten.be/parking'
+    'Gent' => 'http://linked.open.gent/parking',
+    'Kortrijk' => 'http://kortrijk.datapiloten.be/parking',
+    'Leuven' => 'http://leuven.datapiloten.be/parking',
+    'Sint-Niklaas' => 'http://sint-niklaas.datapiloten.be/parking'
 ];
 
 $summarizer = new Summarizer($granularities, $urls);

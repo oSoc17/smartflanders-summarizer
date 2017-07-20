@@ -1,7 +1,6 @@
 <?php
 
-namespace Summarizer;
-
+namespace oSoc\Summary;
 
 use pietercolpaert\hardf\TriGParser;
 
@@ -18,7 +17,8 @@ class Summarizer
 
     public function summarizeAll() {
         // For each url
-        foreach($this->urls as $url) {
+        foreach($this->urls as $name => $url) {
+            echo "Getting data for " . $name . "\n";
             // Get raw data
             $raw = file_get_contents($url);
 
