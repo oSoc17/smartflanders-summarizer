@@ -64,16 +64,10 @@ class Summarizer
                 foreach($filteredGraph['triples'] as $triple) {
                     array_push($literals, Util::getLiteralValue($triple['object']));
                 }
-                sort($literals);
-                $count = count($literals);
-                $avg = array_sum($literals) / $count;
-                $min = $literals[0];
-                $max = $literals[$count-1];
-                if ($count%2 === 0) {
-                    $med = ($literals[$count/2-1] + $literals[$count/2])/2;
-                } else {
-                    $med = $literals[$count/2];
-                }
+                $avg = array_sum($literals) / count($literals);
+                $max = max($literals);
+                $min = min($literals);
+
             }
 
             // Write to current summary file (use filesystem from smartflanders backend)
