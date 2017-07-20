@@ -29,7 +29,7 @@ Class FileSystemProcessor {
         $this->file_interval = $this->granularity * 12; // 12 measurements per file
     }
 
-    // Get closest page (timestamp), given a timestamp
+    // Get closest page (timestamp) for a given timestamp
     public function getClosestPage($timestamp) {
         $return_ts = $this->roundTimestamp($timestamp);
         if (!$this->hasFile($return_ts)) {
@@ -44,8 +44,8 @@ Class FileSystemProcessor {
         return false;
     }
 
-    // Get the last written page (closest to now)
-    public function getLastPage() {
+    // Get current page (this page is still forming, others are historic and don't change)
+    public function getCurrentPage() {
         return $this->getClosestPage(time());
     }
 
@@ -66,6 +66,8 @@ Class FileSystemProcessor {
         return false;
     }
 
+    // Takes: UNIX timestamp
+    // Returns: previous file for timestamp (also UNIX timestamp)
     protected function getPreviousFromTimestamp($timestamp) {
         $oldest = $this->getOldestTimestamp();
         if ($oldest) {
@@ -81,6 +83,8 @@ Class FileSystemProcessor {
         return false;
     }
 
+    // Takes: UNIX timestamp
+    // Returns: next file for timestamp (also UNIX timestamp)
     protected function getNextFromTimestamp($timestamp) {
         $timestamp = $this->roundTimestamp($timestamp);
         $now = time();
